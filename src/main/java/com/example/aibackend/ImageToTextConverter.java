@@ -2,6 +2,9 @@ package com.example.aibackend;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Configuration;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,15 +13,27 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageToTextConverter {
 
-    public static void main(String[] args) {
+@Configuration
+public class ImageToTextConverter implements ApplicationRunner {
+
+    public static void main(String [] args) {
         // Initialize Tesseract
         ITesseract tesseract = new Tesseract();
-        // tesseract.setDatapath("/path/to/tessdata"); // Set the path to your tessdata directory
 
-        // Specify the absolute image file path
-        String imagePath = "/Users/mac1/Desktop/download.png"; // Replace with the actual absolute image file path
+// Set Tesseract data path
+        tesseract.setDatapath("C:\\Users\\Public\\Documents\\AIApiBackendCloned\\Tess4J\\tessdata");
+
+// Specify the language (e.g., English)
+        tesseract.setLanguage("eng");
+
+// Set image DPI (dots per inch) to improve resolution
+        tesseract.setTessVariable("user_defined_dpi", "1000"); // Adjust the DPI as needed
+
+        String folder = "C:\\Users\\Public\\Documents\\AIApiBackendCloned\\src\\main\\java\\com\\example\\aibackend\\";
+
+// Specify the absolute image file path
+        String imagePath = folder + "georgebernardshaw1.jpg"; // Replace with the actual image file path
 
         try {
             // Load and display the image
@@ -44,5 +59,11 @@ public class ImageToTextConverter {
             e.printStackTrace();
             System.err.println("OCR Error: " + e.getMessage());
         }
+
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+
     }
 }
