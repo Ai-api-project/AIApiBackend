@@ -18,20 +18,23 @@ import java.io.IOException;
 public class ImageToTextConverter implements ApplicationRunner {
 
     public static void main(String [] args) {
+
+        System.setProperty("jna.library.path", "/usr/local/lib"); // Replace with the actual path to your Tesseract library
+
         // Initialize Tesseract
         ITesseract tesseract = new Tesseract();
 
 // Set Tesseract data path
-        tesseract.setDatapath("C:\\Users\\Public\\Documents\\AIApiBackendCloned\\Tess4J\\tessdata");
+        tesseract.setDatapath("/Users/mac1/IdeaProjects/AIApiBackend/Tess4J/tessdata");
 
 // Specify the language (e.g., English)
 // Set image DPI (dots per inch) to improve resolution
         tesseract.setTessVariable("user_defined_dpi", "1000"); // Adjust the DPI as needed
 
-        String folder = "C:\\Users\\Public\\Documents\\AIApiBackendCloned\\src\\main\\java\\com\\example\\aibackend\\";
+       // String folder = "C:\\Users\\Public\\Documents\\AIApiBackendCloned\\src\\main\\java\\com\\example\\aibackend\\";
 
 // Specify the absolute image file path
-        String imagePath = folder + "georgebernardshaw1.jpg"; // Replace with the actual image file path
+        String imagePath = "/Users/mac1/IdeaProjects/AIApiBackend/src/main/java/com/example/aibackend/georgebernardshaw1.jpg"; // Replace with the actual image file path
 
         try {
             // Load and display the image
