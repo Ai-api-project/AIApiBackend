@@ -14,8 +14,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @Controller
+@CrossOrigin(origins = "*")
 public class OCRController {
-    @CrossOrigin(origins = "*")
+
 
     @PostMapping("/ocr")
     public ResponseEntity<String> performOCR(@RequestPart("image") MultipartFile image) {
