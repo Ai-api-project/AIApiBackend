@@ -34,8 +34,9 @@ public class OCRController {
     }
 
 
-    @GetMapping()
-    public String reponse(){
+    @GetMapping("/")
+    @ResponseBody
+    public String hello() {
         return "hej";
     }
 
