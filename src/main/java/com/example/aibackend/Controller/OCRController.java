@@ -47,17 +47,26 @@ public class OCRController {
         // Get the tessdata path from the environment variable
         String tessdataPath = System.getenv("TESSDATA_PATH");
 
-        System.out.println("TESSDATA_PATH: " + tessdataPath);  // Log the value
+        System.out.println("TESSDATA_PATH: " + tessdataPath);  // Log the tessdata path
 
         if (tessdataPath != null && !tessdataPath.isEmpty()) {
             tesseract.setDatapath(tessdataPath);
             tesseract.setTessVariable("user_defined_dpi", "1000");
 
-            return tesseract.doOCR(image);
+            try {
+                String result = tesseract.doOCR(image);
+                System.out.println("OCR Result: " + result);  // Log the OCR result
+                return result;
+            } catch (TesseractException e) {
+                System.out.println("OCR Error: " + e.getMessage());  // Log the OCR error
+                throw e;  // Re-throw the exception for further handling
+            }
         } else {
             throw new TesseractException("TESSDATA_PATH environment variable not set.");
         }
     }
+
+
 
 
 
