@@ -6,10 +6,7 @@ import net.sourceforge.tess4j.TesseractException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -36,22 +33,19 @@ public class OCRController {
         }
     }
 
-    private String performOCR(BufferedImage image) throws TesseractException {
-        ITesseract tesseract = new Tesseract();
 
-        // Get the tessdata path from the environment variable
-        String tessdataPath = System.getenv("TESSDATA_PATH");
-
-        if (tessdataPath != null && !tessdataPath.isEmpty()) {
-            tesseract.setDatapath(tessdataPath);
-            tesseract.setTessVariable("user_defined_dpi", "1000");
-
-            return tesseract.doOCR(image);
-        } else {
-            throw new TesseractException("TESSDATA_PATH environment variable not set.");
-        }
+    @GetMapping()
+    public String reponse(){
+        return "hej";
     }
 
+    private String performOCR(BufferedImage image) throws TesseractException {
+        ITesseract tesseract = new Tesseract();
+        tesseract.setDatapath("Tess4J\\tessdata");
+        tesseract.setTessVariable("user_defined_dpi", "1000");
+
+        return tesseract.doOCR(image);
+    }
 
 
 }
