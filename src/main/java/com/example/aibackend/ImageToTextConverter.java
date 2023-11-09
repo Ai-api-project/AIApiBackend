@@ -41,7 +41,7 @@ public class ImageToTextConverter implements ApplicationRunner {
             File imageFile = new File(imagePath);
             BufferedImage image = ImageIO.read(imageFile);
 
-            if (image != null) {
+            if (image != null ) {
                 // Display the image in a JFrame
                 JFrame frame = new JFrame("Image Viewer");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,4 +67,6 @@ public class ImageToTextConverter implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
     }
+
+
 }

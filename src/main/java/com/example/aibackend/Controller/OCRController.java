@@ -23,8 +23,19 @@ public class OCRController {
     @PostMapping("/ocr")
     public ResponseEntity<String> performOCR(@RequestPart("image") MultipartFile image) {
         try {
+            // Check if the file format is supported by Tesseract
+            String contentType = image.getContentType();
+            if (contentType == null || !contentType.startsWith("image/")) {
+                return new ResponseEntity<>("Error: The format you have entered is not supported. Please upload an image file (JPEG, PNG, GIF, TIFF, BMP, etc.)", HttpStatus.BAD_REQUEST);
+            }
+
             // Convert MultipartFile to BufferedImage
             BufferedImage bufferedImage = ImageIO.read(image.getInputStream());
+
+            // Check if the image conversion was successful
+            if (bufferedImage == null) {
+                return new ResponseEntity<>("Error: Unable to read the image. Please make sure it is a valid image file.", HttpStatus.BAD_REQUEST);
+            }
 
             // Perform OCR
             String result = performOCR(bufferedImage);
@@ -35,6 +46,8 @@ public class OCRController {
             return new ResponseEntity<>("OCR Error: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     private String performOCR(BufferedImage image) throws TesseractException {
         System.setProperty("jna.library.path", "/usr/local/lib"); // Replace with the actual path to your Tesseract library

@@ -51,6 +51,10 @@
             <artifactId>tess4j</artifactId>
             <version>5.0.0</version> <!-- Use the latest version available -->
         </dependency>
+        <!-- For Maven -->
+        <!-- For Maven -->
+
+
 
 
     </dependencies>
