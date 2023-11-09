@@ -38,19 +38,12 @@ public class OCRController {
 
     private String performOCR(BufferedImage image) throws TesseractException {
         ITesseract tesseract = new Tesseract();
+        tesseract.setDatapath("Tess4J\\tessdata");
+        tesseract.setTessVariable("user_defined_dpi", "1000");
 
-        // Get the tessdata path from the environment variable
-        String tessdataPath = System.getenv("TESSDATA_PATH");
-
-        if (tessdataPath != null && !tessdataPath.isEmpty()) {
-            tesseract.setDatapath(tessdataPath);
-            tesseract.setTessVariable("user_defined_dpi", "1000");
-
-            return tesseract.doOCR(image);
-        } else {
-            throw new TesseractException("TESSDATA_PATH environment variable not set.");
-        }
+        return tesseract.doOCR(image);
     }
+
 
 }
 
